@@ -1,4 +1,4 @@
-This is a Linux kernel module implementing a wpan network driver for the 
+This is a Linux kernel module implementing a network driver for the 
 DecaWave DW1000 802.15.4 UWB transceiver.
 
 dw1000.c                contains the main driver implementation
