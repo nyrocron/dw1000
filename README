@@ -1,9 +1,13 @@
 This is a Linux kernel module implementing a network driver for the 
-DecaWave DW1000 802.15.4 UWB transceiver.
+DecaWave DW1000 802.15.4 UWB transceiver. It was only tested with
+a Raspberry Pi 2.
 
 dw1000.c                contains the main driver implementation
+LICENSE                 GPLv2 License that applies to this project
+COMPILING               Information on the build process
 tools/readflags.py      is a script that decodes status register flags,
                         useful for debugging the driver
 devicetree/             contains device trees and on overlay for using the module
                         when connected to a Raspberry Pi 2 via the SPI0.0
                         port and Pin 16 (BCM23) as IRQ pin.
+wiring/                 Information on wiring up the DW1000 to a RPi
