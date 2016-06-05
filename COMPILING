@@ -1,0 +1,32 @@
+# get requirements
+git clone https://github.com/nyrocron/dw1000_tools
+cd dw1000_tools/
+cd devenv/
+./setup.sh 
+# adjust the WORKDIR in ../activate
+gvim activate 
+source activate 
+
+# build the kernel
+cd linux
+KERNEL=kernel7 make bcm2709_defconfig
+make -j4 zImage modules dtbs
+
+# mount the sd card (root and boot partitions) under /mnt
+mount /dev/mmcblk0p2 /mnt
+mount /dev/mmcblk0p1 /mnt/boot
+
+# install modules and kernel image
+sudo -E make INSTALL_MOD_PATH=/mnt modules_install
+sudo scripts/mkknlimg arch/arm/boot/zImage /mnt/boot/linux-4.4-0605.img
+# adjust kernel to be booted
+sudo vim /mnt/boot/config.txt
+
+# compile the module
+cd ../dw1000/
+# adjust KERNELDIR in the module Makefile
+gvim Makefile 
+
+# load module on host pi2-a and set address to 10.0.0.1
+RHOST=pi2-a RANR=1 make rstart
+
